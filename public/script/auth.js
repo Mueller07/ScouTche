@@ -59,7 +59,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
    
       closeModal();
 
-      console.log('Login OK, redirecionando para home.html');
+      console.log('Login OK, redirecionando para home');
       // Redireciona para a home após fechar modal
       window.location.href = 'home.html';
     } else {

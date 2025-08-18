@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="./css/header.css" />
     <link rel="stylesheet" href="./css/headerResponsive.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="./css/modalFlutuante.css"/>
+    <link rel="stylesheet" href="./css/modalFlutuante.css" />
 
 </head>
 
@@ -232,6 +232,43 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalEditar" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Evento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="formEditar">
+                    <input type="hidden" id="editId" name="id" />
+                    <div class="mb-3">
+                        <label class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="editNome" name="nome" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descrição</label>
+                        <textarea class="form-control" id="editDesc" name="desc" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">CEP</label>
+                        <input type="text" class="form-control" id="editCep" name="cep" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Modalidade</label>
+                        <select class="form-select" id="editModalidade" name="modalidade" required>
+                            <option value="Futebol">Futebol</option>
+                            <option value="Basquete">Basquete</option>
+                            <option value="Volei">Vôlei</option>
+                            <option value="Handebol">Handebol</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Salvar alterações</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./script/modalFlutuante.js"></script>

@@ -311,9 +311,8 @@ function obterIndiceDaFoto(src) {
     'img/foto7.jpeg',
   ];
 
-  // Procura o índice correspondente
   const indice = fotos.indexOf(src);
-  return indice !== -1 ? indice : null; // retorna null se não encontrar
+  return indice !== -1 ? indice : null; 
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -366,7 +365,7 @@ async function excluirConta() {
 
       setTimeout(() => {
         window.location.href = 'index.html';
-      }, 2000);
+      }, 1000);
     } else {
       mostrarAlertaGlobal(data.mensagem || 'Erro ao excluir conta: senha incorreta.', 'danger');
     }
@@ -377,11 +376,12 @@ async function excluirConta() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const btnExcluirConta = document.getElementById('btnExcluirConta');
+  const btnExcluirConta = document.getElementById('btnConfirmarExclusao');
   if (btnExcluirConta) {
     btnExcluirConta.addEventListener('click', excluirConta);
   }
 });
+
 
 function converterDataBRparaISO(dataBR) {
   const partes = dataBR.split('/');

@@ -1,10 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     const usuario = JSON.parse(localStorage.getItem("usuarioDados"));
 
-
     const tiposPermitidos = ["profissional", "equipeSeletiva", "atleta"];
 
-    if (!usuario || !tiposPermitidos.includes("atleta")) {
+    if (!usuario || !tiposPermitidos.includes(usuario.tipo)) {
         const btnSeletiva = document.querySelector('[data-bs-target="#modalSeletiva"]');
         const btnTorneio = document.querySelector('[data-bs-target="#modalTorneio"]');
 
