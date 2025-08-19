@@ -14,29 +14,6 @@ export class EventoController {
     async create(req: Request, res: Response) {
         const { tipo, nome, desc, cep, modalidade } = req.body;
 
-        // Pegando o tipo de conta do usuário autenticado
-        const usuario = (req as any).user;
-        const tipoConta = usuario?.tipoConta?.toLowerCase();
-
-        if (!tipoConta) {
-            res.status(401).json({ message: "Usuário não autenticado" });
-            return;
-        }
-
-        // Regras de permissão por tipo de conta
-        const permissoes: Record<string, string[]> = {
-            atleta: ["Jogo Amador"],
-            profissional: ["Torneio"],
-            clube: ["Torneio", "Peneira"]
-        };
-
-        // Verifica se o tipo de evento é permitido
-        if (!permissoes[tipoConta] || !permissoes[tipoConta].includes(tipo)) {
-            res.status(403).json({
-                message: `Usuário do tipo '${tipoConta}' não pode criar evento do tipo '${tipo}'.`
-            });
-            return;
-        }
 
         // Validação de campos obrigatórios
         if (!nome || !cep || !modalidade) {

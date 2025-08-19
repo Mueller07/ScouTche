@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------- Carregar eventos ----------
   async function carregarEventos() {
     try {
-      const res = await fetch(`http://localhost:3000/api/get/peneira`);
+      const res = await fetch(`http://localhost:3000/api/peneira`);
       if (!res.ok) throw new Error("Erro ao carregar eventos");
       const eventos = await res.json();
       telasContainer.innerHTML = "";
@@ -40,7 +40,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------- Criar evento ----------
   async function criarEvento(form, tipo) {
     const token = localStorage.getItem("token");
-    console.log(token);
+  
+    if (!token) {
+      mostrarAlerta("Usuário não autenticado", "danger");
+      return;
+    }
+  
+    // Validação simples dos campos
+    if (!form.nome.value || !form.desc.value || !form.cep.value || !form.modalidade.value) {
+      mostrarAlerta("Todos os campos são obrigatórios", "danger");
+      return;
+    }
+  
     const dados = {
       tipo,
       nome: form.nome.value,
@@ -48,20 +59,22 @@ document.addEventListener("DOMContentLoaded", () => {
       cep: form.cep.value,
       modalidade: form.modalidade.value,
     };
-
+  
     try {
-      const res = await fetch("http://localhost:3000/api/post/peneira", {
+      const res = await fetch("http://localhost:3000/api/peneira", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(dados),
+        credentials: "include",
       });
+  
       if (!res.ok) {
-        const err = await res.json();
+        const err = await res.json().catch(() => ({}));
         throw new Error(err.message || "Erro ao criar evento");
       }
+  
       mostrarAlerta("Evento criado com sucesso!", "success");
       carregarEventos();
     } catch (error) {
@@ -72,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------- Atualizar evento ----------
   async function atualizarEvento(id, dados) {
     try {
-      const res = await fetch(`http://localhost:3000/api/put/peneira/${id}`, {
+      const res = await fetch(`http://localhost:3000/api/peneira/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(dados),
@@ -92,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
   async function deletarEvento(id) {
     if (!confirm("Tem certeza que deseja excluir este evento?")) return;
     try {
-      const res = await fetch(`http://localhost:3000/api/delete/peneira/${id}`, { method: "DELETE" });
+      const res = await fetch(`http://localhost:3000/api/peneira/${id}`, { method: "DELETE" });
       if (!res.ok) {
         const err = await res.json();
         throw new Error(err.message || "Erro ao excluir evento");
@@ -109,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const token = localStorage.getItem("token");
 
     try {
-      const resposta = await fetch(`http://localhost:3000/api/put/peneira/${id}`, {
+      const resposta = await fetch(`http://localhost:3000/api/peneira/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

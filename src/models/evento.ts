@@ -6,7 +6,7 @@ export class Evento{
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column({type: "enum", enum: ['Amistoso', 'Peneira', 'Varzea'], nullable: false})
+    @Column({type: "enum", enum: ['Seletiva', 'Torneio', 'Jogo'], nullable: false})
     tipo: string //USAR CHECK
 
     @Column({type: "varchar", length: 255, nullable: false})
