@@ -139,6 +139,9 @@ export const UserController = {
           tipoConta: user.tipoConta,
           avatar: user.avatar, // ou fotoPerfil, conforme sua entidade
         },
+        token: {
+          token: token
+        },
       });
     } catch (error) {
       console.error(error);
