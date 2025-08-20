@@ -228,3 +228,82 @@ main {
     background: linear-gradient(135deg, #0056b3, #0096c7);
     transform: translateY(-2px);
 }
+
+.tela {
+    background-color: #ede8e8;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 100%;
+}
+
+
+.telas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.tela:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.tela h6 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: #333;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5rem;
+}
+
+.tela p {
+    font-size: 0.95rem;
+    color: #555;
+    margin: 0.4rem 0;
+    padding-left: 0.3rem;
+}
+
+.tela .botoes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+.tela button {
+    flex: 1;
+    margin: 0 0.3rem;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-editar {
+    background-color: #0d6efd;
+    color: #fff;
+}
+
+.btn-editar:hover {
+    background-color: #0b5ed7;
+}
+
+.btn-excluir {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.btn-excluir:hover {
+    background-color: #bb2d3b;
+}

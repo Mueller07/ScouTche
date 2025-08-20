@@ -24,12 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
         card.classList.add("tela");
         card.dataset.id = evento.id;
         card.innerHTML = `
-          <h6>${evento.nome}</h6>
-          <p>Tipo: ${evento.tipo}</p>
-          <p>Modalidade: ${evento.modalidade}</p>
-          <button class="btn-editar">Editar</button>
-          <button class="btn-excluir">Excluir</button>
-        `;
+  <h6>${evento.nome}</h6>
+  <p><strong>Tipo:</strong> ${evento.tipo}</p>
+  <p><strong>Modalidade:</strong> ${evento.modalidade}</p>
+  <p><strong>Descrição:</strong> ${evento.desc}</p>
+  <p><strong>Cep:</strong> ${evento.cep}</p>
+  <div class="botoes">
+    <button class="btn-editar">Editar</button>
+    <button class="btn-excluir">Excluir</button>
+  </div>
+`;
+
         telasContainer.appendChild(card);
       });
     } catch (error) {
@@ -40,18 +45,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------- Criar evento ----------
   async function criarEvento(form, tipo) {
     const token = localStorage.getItem("token");
-  
+
     if (!token) {
       mostrarAlerta("Usuário não autenticado", "danger");
       return;
     }
-  
+
     // Validação simples dos campos
     if (!form.nome.value || !form.desc.value || !form.cep.value || !form.modalidade.value) {
       mostrarAlerta("Todos os campos são obrigatórios", "danger");
       return;
     }
-  
+
     const dados = {
       tipo,
       nome: form.nome.value,
@@ -59,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cep: form.cep.value,
       modalidade: form.modalidade.value,
     };
-  
+
     try {
       const res = await fetch("http://localhost:3000/api/peneira", {
         method: "POST",
@@ -69,12 +74,12 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify(dados),
         credentials: "include",
       });
-  
+
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
         throw new Error(err.message || "Erro ao criar evento");
       }
-  
+
       mostrarAlerta("Evento criado com sucesso!", "success");
       carregarEventos();
     } catch (error) {
