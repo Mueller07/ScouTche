@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="./css/modalFlutuante.css"/>
 </head>
 
-<body onload="carregarFoto()">
+<body onload="carregarFoto(); carregarEventos()">
 
     <header>
         <a>
@@ -83,17 +83,17 @@
     <div id="modalPerfil" class="mini-overlay d-none">
         <ul>
             <li><a href="perfil.html">Ver Perfil</a></li>
-            <li><a href="#" id="linkAlterarEmail">Alterar E-mail</a></li>
-            <li><a href="#" id="linkAlterarSenha">Alterar Senha</a></li>
             <li><a href="#" class="sair" id="btnSair">Sair da Conta</a></li>
         </ul>
     </div>
-
+    <main>
 
     <h2>Próximos Eventos</h2>
     <div id="alertContainer" class="container mt-3"></div>
-    <main>
-        <div id="flex">
+        <div class="container">
+          <div class="row">
+            
+          </div>
         </div>
     </main>
 
@@ -101,6 +101,8 @@
     <script src="./script/inscricoes.js"></script>
     <script src="./script/modalFlutuante.js"></script>
     <script src="./script/protect-page.js"></script>
+    <script src="./script/script.js"></script>
+
 </body>
 
 </html>
