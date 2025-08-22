@@ -87,25 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ---------- Atualizar evento ----------
-  async function atualizarEvento(id, dados) {
-    try {
-      const res = await fetch(`http://localhost:3000/api/peneira/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dados),
-      });
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.message || "Erro ao atualizar evento");
-      }
-      mostrarAlerta("Evento atualizado com sucesso!", "success");
-      carregarEventos();
-    } catch (error) {
-      mostrarAlerta(error.message, "danger");
-    }
-  }
-
   // ---------- Deletar evento ----------
   async function deletarEvento(id) {
     if (!confirm("Tem certeza que deseja excluir este evento?")) return;
@@ -121,9 +102,41 @@ document.addEventListener("DOMContentLoaded", () => {
       mostrarAlerta(error.message, "danger");
     }
   }
+  const formEditar = document.getElementById("formEditar");
+  const modalEditar = new bootstrap.Modal(document.getElementById("modalEditar"));
 
-  // ---------- Editar evento ----------
-  async function editarEvento(id, dadosAtualizados) {
+  // ---------- Abrir modal de edição ----------
+  telasContainer.addEventListener("click", (e) => {
+    if (e.target.classList.contains("btn-editar")) {
+      const card = e.target.closest(".tela");
+      const id = card.dataset.id;
+      const nome = card.querySelector("h6").textContent;
+      const desc = card.querySelector("p:nth-of-type(3)").textContent.replace("Descrição: ", "");
+      const cep = card.querySelector("p:nth-of-type(5)").textContent.replace("Cep: ", "");
+      const modalidade = card.querySelector("p:nth-of-type(4)").textContent.replace("Modalidade: ", "");
+
+      // Preencher o formulário
+      document.getElementById("editId").value = id;
+      document.getElementById("editNome").value = nome;
+      document.getElementById("editDesc").value = desc;
+      document.getElementById("editCep").value = cep;
+      document.getElementById("editModalidade").value = modalidade;
+
+      modalEditar.show();
+    }
+  });
+
+  // ---------- Submeter formulário de edição ----------
+  formEditar.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const id = document.getElementById("editId").value;
+    const dadosAtualizados = {
+      nome: document.getElementById("editNome").value,
+      desc: document.getElementById("editDesc").value,
+      cep: document.getElementById("editCep").value,
+      modalidade: document.getElementById("editModalidade").value,
+    };
+
     const token = localStorage.getItem("token");
 
     try {
@@ -131,9 +144,9 @@ document.addEventListener("DOMContentLoaded", () => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+          "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify(dadosAtualizados)
+        body: JSON.stringify(dadosAtualizados),
       });
 
       if (!resposta.ok) {
@@ -142,11 +155,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       mostrarAlerta("Evento atualizado com sucesso!", "success");
+      modalEditar.hide();
       carregarEventos();
     } catch (err) {
       mostrarAlerta(err.message, "danger");
     }
-  }
+  });
 
   // ---------- Listener único para todos os forms ----------
   document.querySelectorAll("form").forEach(form => {
