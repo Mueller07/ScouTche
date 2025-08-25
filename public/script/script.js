@@ -140,7 +140,7 @@ async function carregarEventos() {
           imagem = "https://i.postimg.cc/rF0WNymh/image.png";
           break;
         default:
-          imagem = "https://i.postimg.cc/t43d06TM/image.png"; // padrão
+          imagem = "https://i.postimg.cc/t43d06TM/image.png";
           break;
       }
 

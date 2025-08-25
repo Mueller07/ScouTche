@@ -71,7 +71,7 @@ export class EventoController {
 
     async update(req: Request, res: Response) {
         const { id } = req.params;
-        const { nome, cep, modalidade } = req.body;
+        const { nome,desc, cep,modalidade } = req.body;
 
         const evento = await eventoRepository.findOneBy({ id: Number(id) });
 
@@ -82,6 +82,7 @@ export class EventoController {
 
         evento.nome = nome;
         evento.cep = cep;
+        evento.desc = desc
         evento.modalidade = modalidade;
 
         await eventoRepository.save(evento);

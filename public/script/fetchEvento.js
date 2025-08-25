@@ -134,11 +134,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const id = document.getElementById("editId").value;
     const dadosAtualizados = {
       nome: document.getElementById("editNome").value,
-      desc: document.getElementById("editDesc").value,
+      desc: document.getElementById("editDesc").value.trim(),
       cep: document.getElementById("editCep").value,
       modalidade: document.getElementById("editModalidade").value,
     };
-
+console.log(dadosAtualizados)
     const token = localStorage.getItem("token");
 
     try {
@@ -176,15 +176,6 @@ document.addEventListener("DOMContentLoaded", () => {
         criarEvento(form, "Torneio");
       } else if (form.id === "formJogo") {
         criarEvento(form, "Jogo");
-      } else if (form.id === "formEditar") {
-        const idEvento = document.getElementById("editId").value;
-        const dados = {
-          nome: form.nome.value,
-          desc: form.desc.value,
-          cep: form.cep.value,
-          modalidade: form.modalidade.value
-        };
-        editarEvento(idEvento, dados);
       }
 
       // Fecha modal se houver
