@@ -161,14 +161,9 @@ async function carregarFoto() {
 }
 
 // ==================== FUNÇÕES AUXILIARES ====================
-function converterDataBRparaISO(dataBR) {
-  const [dia, mes, ano] = dataBR.split('/');
-  return `${ano}-${mes.padStart(2,'0')}-${dia.padStart(2,'0')}`;
-}
-
+//idade
 function calcularIdade(dataNascimento) {
   if (!dataNascimento) return null;
-  if (dataNascimento.includes('/')) dataNascimento = converterDataBRparaISO(dataNascimento);
   const hoje = new Date();
   const nascimento = new Date(dataNascimento);
   if (isNaN(nascimento)) return null;
@@ -177,6 +172,41 @@ function calcularIdade(dataNascimento) {
   if (m < 0 || (m === 0 && hoje.getDate() < nascimento.getDate())) idade--;
   return idade;
 }
+
+//idade
+document.getElementById('salvarEdicaoPerfil').addEventListener('click', async () => {
+  const dataNascimento = document.getElementById('editNascimento').value;
+  const idade = calcularIdade(dataNascimento);
+  const modalidade = document.getElementById('editModalidade').value;
+  const bio = document.getElementById('editBio').value.trim();
+  const usuario = JSON.parse(localStorage.getItem('usuarioDados'));
+
+  const dados = {
+    nascimento: dataNascimento,
+    idade,
+    modalidade,
+    bio
+  };
+
+  try {
+    const response = await fetch(`http://localhost:3000/api/perfil/${usuario.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dados)
+    });
+
+    if (response.ok) {
+      document.getElementById('idadePerfil').textContent = idade + ' anos';
+      alert('Perfil atualizado com sucesso!');
+      document.getElementById('modal-editar-perfil').classList.add('d-none');
+    } else {
+      alert('Erro ao atualizar o perfil.');
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Erro na conexão com o servidor.');
+  }
+});
 
 // ==================== PERFIL ====================
 async function carregarPerfil() {

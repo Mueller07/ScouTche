@@ -14,3 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+document.getElementById('btnSair').addEventListener('click', (e) => {
+    e.preventDefault();
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('usuarioDados');
+    localStorage.removeItem('usuarioLogado');
+
+    window.location.href = 'index.html';
+});

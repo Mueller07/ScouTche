@@ -101,7 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const inputs = form.querySelectorAll('input');
-    const nome = (inputs[0].value.trim() + ' ' + inputs[1].value.trim()).trim();
+    const nome = inputs[0].value.trim();
+    const nascimento = inputs[1].value.trim();
     const email = inputs[2].value.trim();
     const senha = inputs[3].value.trim();
     const confirmarSenha = inputs[4].value.trim();

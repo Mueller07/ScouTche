@@ -116,7 +116,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   } catch (erro) {
     console.error("Erro ao carregar eventos:", erro);
-    mostrarAlerta('Erro ao carregar eventos: ' + erro.message, 'danger');
     container.innerHTML = "<p class='text-danger'>Erro ao carregar eventos.</p>";
   }
 
