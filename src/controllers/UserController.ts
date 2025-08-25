@@ -193,7 +193,6 @@ export const UserController = {
       }
 
       user.nome = nome || user.nome;
-      user.sobrenome = sobrenome || user.sobrenome;
       user.nascimento = nascimento || user.nascimento;
       user.bio = bio || user.bio;
 

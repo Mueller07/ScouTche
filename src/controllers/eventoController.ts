@@ -12,7 +12,7 @@ export class EventoController {
     }
 
     async create(req: Request, res: Response) {
-        const { tipo, nome, desc, cep, modalidade } = req.body;
+        const { tipo, nome, desc, cep, modalidade, user } = req.body;
 
 
         // Validação de campos obrigatórios
@@ -22,7 +22,7 @@ export class EventoController {
         }
 
         // Criação do evento
-        const novoEvento = eventoRepository.create(new Evento(tipo, nome, desc, cep, modalidade));
+        const novoEvento = eventoRepository.create(new Evento(tipo, nome, desc, cep, modalidade, user));
         await eventoRepository.save(novoEvento);
 
         res.status(201).json({
@@ -32,6 +32,29 @@ export class EventoController {
         return;
     }
     
+    async getUserId(req: Request, res: Response): Promise<void> {
+        const { id } = req.params;
+        const userId = Number(id);
+    
+        if (isNaN(userId)) {
+            res.status(400).json({ message: "ID inválido" });
+            return;
+        }
+    
+        const eventos = await eventoRepository.find({
+            where: { user: { id: userId } } 
+        });
+    
+        if (eventos.length === 0) {
+            res.status(404).json({ message: "Nenhum evento encontrado para este usuário" });
+            return;
+        }
+    
+        res.json(eventos);
+    }
+    
+    
+
     async show(req: Request, res: Response) {
         const { id } = req.params;
 

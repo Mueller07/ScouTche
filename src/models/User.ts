@@ -23,8 +23,6 @@ export class User {
  @Column({type:'int'})
   avatar!:number
 
-  @Column({ nullable: true })
-  sobrenome?: string;
 
   @Column({ type: 'date', nullable: true })
   nascimento?: string;
@@ -34,8 +32,6 @@ export class User {
 
  
 
-  @Column({ type: 'varchar', length: 255, nullable: true })
-  fotoPerfil?: string | null;
 
    @OneToMany(() => Evento, (evento:Evento) => evento.user,{ nullable: true })
  eventos!:Evento[];

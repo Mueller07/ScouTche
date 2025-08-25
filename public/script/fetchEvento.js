@@ -14,8 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ---------- Carregar eventos ----------
   async function carregarEventos() {
+    const usuario = JSON.parse(localStorage.getItem('usuarioDados'))
     try {
-      const res = await fetch(`http://localhost:3000/api/peneira`);
+      const res = await fetch(`http://localhost:3000/api/peneira/user/${usuario.id}`);
       if (!res.ok) throw new Error("Erro ao carregar eventos");
       const eventos = await res.json();
       telasContainer.innerHTML = "";
@@ -56,13 +57,14 @@ document.addEventListener("DOMContentLoaded", () => {
       mostrarAlerta("Todos os campos são obrigatórios", "danger");
       return;
     }
-
+    const usuario = JSON.parse(localStorage.getItem('usuarioDados'))
     const dados = {
       tipo,
       nome: form.nome.value,
       desc: form.desc.value,
       cep: form.cep.value,
       modalidade: form.modalidade.value,
+      user:usuario.id
     };
 
     try {

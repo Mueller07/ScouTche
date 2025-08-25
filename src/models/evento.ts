@@ -30,11 +30,12 @@ export class Evento{
 
     //IDCLUBE E IDUSUARIO
 
-    constructor(tipo: string,nome: string,desc: string ,cep: string, modalidade: string){
+    constructor(tipo: string,nome: string,desc: string ,cep: string, modalidade: string, user:User){
         this.tipo = tipo
         this.nome = nome
         this.desc = desc
         this.cep = cep
         this.modalidade = modalidade
+        this.user=user
     }
 }
