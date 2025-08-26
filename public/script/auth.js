@@ -124,6 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         body: JSON.stringify({
           nome,
+          nascimento,
           email,
           senha,
           confirmarSenha,

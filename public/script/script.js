@@ -1,3 +1,4 @@
+// Navegação do header
 const links = document.querySelectorAll('header .nav-link');
 
 links.forEach(link => {
@@ -8,6 +9,7 @@ links.forEach(link => {
   });
 });
 
+// Dropdowns de filtros
 document.querySelectorAll('.filtro').forEach(button => {
   button.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -40,6 +42,7 @@ document.addEventListener('click', (e) => {
   }
 });
 
+// Controle do carousel
 const carousel = document.querySelector('#myCarousel');
 
 if (carousel) {
@@ -51,16 +54,13 @@ if (carousel) {
     document.querySelector('#info-volei').classList.add('d-none');
     document.querySelector('#info-basquete').classList.add('d-none');
 
-    if (index === 0) {
-      document.querySelector('#info-futsal').classList.remove('d-none');
-    } else if (index === 1) {
-      document.querySelector('#info-volei').classList.remove('d-none');
-    } else if (index === 2) {
-      document.querySelector('#info-basquete').classList.remove('d-none');
-    }
+    if (index === 0) document.querySelector('#info-futsal').classList.remove('d-none');
+    else if (index === 1) document.querySelector('#info-volei').classList.remove('d-none');
+    else if (index === 2) document.querySelector('#info-basquete').classList.remove('d-none');
   });
 }
 
+// Carregar avatar e abrir modal
 document.addEventListener("DOMContentLoaded", () => {
   const btnEscolherAvatar = document.getElementById('btnEscolherAvatar');
   const modalAvatar = document.getElementById('modalAvatar');
@@ -68,26 +68,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const avatarOptions = document.querySelectorAll('.avatar-option');
   const fotoPerfil = document.getElementById('fotoPerfil');
 
-  // Abrir modal avatar
   if (btnEscolherAvatar) {
-    btnEscolherAvatar.addEventListener('click', () => {
-      modalAvatar.classList.remove('d-none');
-    });
+    btnEscolherAvatar.addEventListener('click', () => modalAvatar.classList.remove('d-none'));
   }
 
-  // Fechar modal avatar ao clicar no botão X
   if (closeAvatar) {
-    closeAvatar.addEventListener('click', () => {
-      modalAvatar.classList.add('d-none');
-    });
+    closeAvatar.addEventListener('click', () => modalAvatar.classList.add('d-none'));
   }
 
-  // Fechar modal avatar ao clicar fora da caixa de conteúdo
   if (modalAvatar) {
     modalAvatar.addEventListener('click', (e) => {
-      if (e.target === modalAvatar) {
-        modalAvatar.classList.add('d-none');
-      }
+      if (e.target === modalAvatar) modalAvatar.classList.add('d-none');
     });
   }
 
@@ -101,13 +92,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Carregar avatar salvo ao abrir página
   const usuarioSalvo = JSON.parse(localStorage.getItem('usuarioDados'));
-  if (usuarioSalvo?.avatar) {
-    fotoPerfil.src = usuarioSalvo.avatar;
-  }
+  if (usuarioSalvo?.avatar) fotoPerfil.src = usuarioSalvo.avatar;
 
-  // 🚀 Chamar carregarEventos ao abrir a página
   carregarEventos();
 });
 
@@ -119,75 +106,89 @@ async function carregarEventos() {
     const eventos = await res.json();
 
     const row = document.querySelector(".container .row");
-    if (!row) {
-      console.error("Elemento .container .row não encontrado no HTML");
-      return;
-    }
+    if (!row) return console.error("Elemento .container .row não encontrado");
 
-    row.innerHTML = ""; // limpar cards anteriores
+    row.innerHTML = "";
 
     eventos.forEach(evento => {
-      // Definir imagem de acordo com a modalidade
       let imagem;
-      switch (evento.modalidade?.toLowerCase()) {
-        case "futebol":
-          imagem = "https://i.postimg.cc/KjnJQfP1/image.png";
-          break;
-        case "vôlei":
-          imagem = "https://i.postimg.cc/VkPKSxcX/image.png";
-          break;
-        case "basquete":
-          imagem = "https://i.postimg.cc/rF0WNymh/image.png";
-          break;
-        default:
-          imagem = "https://i.postimg.cc/t43d06TM/image.png";
-          break;
+      switch ((evento.modalidade || "").toLowerCase()) {
+        case "futebol": imagem = "https://i.postimg.cc/KjnJQfP1/image.png"; break;
+        case "vôlei": imagem = "https://i.postimg.cc/VkPKSxcX/image.png"; break;
+        case "basquete": imagem = "https://i.postimg.cc/rF0WNymh/image.png"; break;
+        default: imagem = "https://i.postimg.cc/t43d06TM/image.png"; break;
       }
 
       const col = document.createElement("div");
-      col.classList.add("col-md-4");
-
+      col.classList.add("col-md-3", "mb-3"); 
       col.innerHTML = `
-        <div class="card mb-4 box-shadow">
-          <img class="card-img-top" 
-               src="${imagem}" 
-               alt="Imagem do evento" 
-               style="height: 225px; width: 100%; display: block;">
-          <div class="card-body">
-            <h5 class="card-title fw-bold">${evento.nome}</h5>
-            <p class="card-text">
-              <strong>Tipo:</strong> ${evento.tipo}<br>
-              <strong>Modalidade:</strong> ${evento.modalidade}<br>
-              <strong>Descrição:</strong> ${evento.desc}<br>
-              <strong>Cep:</strong> ${evento.cep}
-            </p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-primary btn-mais" data-id="${evento.id}">Mais Informações</button>
-                <button type="button" class="btn btn-primary btn-editar" data-id="${evento.id}">Entrar</button>
-              </div>
-            </div>
-          </div>
+  <div class="card h-100" style="font-size: 0.9rem;"> <!-- card menor com fonte menor -->
+    <img class="card-img-top" src="${imagem}" alt="Imagem do evento" 
+         style="height: 150px; width: 100%; object-fit: cover;"> <!-- altura menor -->
+    <div class="card-body p-2"> <!-- menos padding -->
+      <h5 class="card-title fw-bold" style="font-size: 1rem;">${evento.nome}</h5>
+      <p class="card-text mb-2" style="font-size: 0.85rem;">
+        <strong>Tipo:</strong> ${evento.tipo}<br>
+        <strong>Modalidade:</strong> ${evento.modalidade}<br>
+      </p>
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary btn-mais btn-sm" data-id="${evento.id}">
+            Mais Informações
+          </button>
         </div>
-      `;
+      </div>
+    </div>
+  </div>
+`;
+
 
       row.appendChild(col);
     });
 
-    // Adicionar eventos aos botões
     document.querySelectorAll(".btn-mais").forEach(btn => {
-      btn.addEventListener("click", () => {
+      btn.addEventListener("click", async () => {
         const id = btn.dataset.id;
-        console.log("Mais informações do evento:", id);
-        alert("Mais informações do evento " + id);
-      });
-    });
+        try {
+          const res = await fetch(`http://localhost:3000/api/peneira/${id}`);
+          const evento = await res.json();
 
-    document.querySelectorAll(".btn-editar").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const id = btn.dataset.id;
-        console.log("Entrar no evento:", id);
-        alert("Entrar no evento " + id);
+          document.getElementById("modalTitulo").innerText = evento.nome;
+          document.getElementById("modalCorpo").innerHTML = `
+            <p><strong>Tipo:</strong> ${evento.tipo}</p>
+            <p><strong>Modalidade:</strong> ${evento.modalidade}</p>
+            <p><strong>Local:</strong> ${evento.cep}</p>
+            <p><strong>Descrição:</strong> ${evento.desc || "Sem descrição"}</p>
+          `;
+
+          const botao = document.getElementById("modalBotaoAcao");
+
+          // remover classes antigas do Bootstrap
+          botao.classList.remove("btn-primary", "btn-success", "btn-danger");
+          
+          // definir estilo inline ou adicionar a nova classe
+          if (window.location.pathname.includes("home.html")) {
+            botao.innerText = "Participar";
+            botao.classList.add("btn-success"); // ou botao.style.backgroundColor = "#28a745"
+            botao.onclick = () => {
+              alert(`Você participou do evento ${evento.nome}`);
+              bootstrap.Modal.getInstance(document.getElementById("modalEvento")).hide();
+            };
+          } else if (window.location.pathname.includes("inscricoes.html")) {
+            botao.innerText = "Sair do evento";
+            botao.classList.add("btn-danger"); // ou botao.style.backgroundColor = "#dc3545"
+            botao.onclick = () => {
+              alert(`Você saiu do evento ${evento.nome}`);
+              bootstrap.Modal.getInstance(document.getElementById("modalEvento")).hide();
+            };
+          }
+          
+                    new bootstrap.Modal(document.getElementById("modalEvento")).show();
+          
+        } catch (err) {
+          console.error(err);
+          alert("Erro ao carregar informações do evento.");
+        }
       });
     });
 
@@ -195,9 +196,10 @@ async function carregarEventos() {
     console.error("Erro ao carregar eventos:", err);
   }
 }
+
+// Buscar logradouro pelo CEP
 async function buscarLogradouro(cep) {
   try {
-    // Remove qualquer traço
     const cepLimpo = cep.replace(/\D/g, "");
     const res = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
     if (!res.ok) throw new Error("Erro ao consultar CEP");
@@ -209,60 +211,31 @@ async function buscarLogradouro(cep) {
   }
 }
 
-
-// Função para carregar foto do perfil
+// Carregar foto do perfil
 async function carregarFoto() {
   const foto = document.getElementById('fotoP');
-  const usuario = JSON.parse(localStorage.getItem('usuarioDados'));  
-
+  const fotoPerfil = document.getElementById('fotoPerfil');
+  const usuario = JSON.parse(localStorage.getItem('usuarioDados'));
   let pers = Number(usuario.id);
 
   try {
     const res = await fetch(`http://localhost:3000/api/get/perfil/${pers}`);
-    if (res.ok) {
-      const data = await res.json();
-      const pers = Number(data.avatar);
+    if (!res.ok) throw new Error("Erro ao carregar perfil");
+    const data = await res.json();
+    const avatar = Number(data.avatar);
 
-      switch (pers) {
-        case 1:
-          foto.src = 'img/foto0.jpeg';
-          fotoPerfil.src = 'img/foto0.jpeg';
-          break;
-        case 2:
-          foto.src = 'img/foto1.jpeg';
-          fotoPerfil.src = 'img/foto2.jpeg';
-          break;
-        case 3:
-          foto.src = 'img/foto2.jpeg';
-          fotoPerfil.src = 'img/foto2.jpeg';
-          break;
-        case 4:
-          foto.src = 'img/foto3.jpeg';
-          fotoPerfil.src = 'img/foto3.jpeg';
-          break;
-        case 5:
-          foto.src = 'img/foto4.jpeg';
-          fotoPerfil.src = 'img/foto4.jpeg';
-          break;
-        case 6:
-          foto.src = 'img/foto5.jpeg';
-          fotoPerfil.src = 'img/foto5.jpeg';
-          break;
-        case 7:
-          foto.src = 'img/foto6.jpeg';
-          fotoPerfil.src = 'img/foto6.jpeg';
-          break;
-        case 8:
-          foto.src = 'img/foto7.jpeg';
-          fotoPerfil.src = 'img/foto7.jpeg';
-          break;
-        default:
-          foto.src = 'https://i.postimg.cc/gJg6vRMH/image.png';
-          break;
-      }
-    } else {
-      document.getElementById('mensagem').innerText = 'Erro ao carregar perfil.';
+    switch (avatar) {
+      case 1: foto.src = fotoPerfil.src = 'img/foto0.jpeg'; break;
+      case 2: foto.src = 'img/foto1.jpeg'; fotoPerfil.src = 'img/foto2.jpeg'; break;
+      case 3: foto.src = fotoPerfil.src = 'img/foto2.jpeg'; break;
+      case 4: foto.src = fotoPerfil.src = 'img/foto3.jpeg'; break;
+      case 5: foto.src = fotoPerfil.src = 'img/foto4.jpeg'; break;
+      case 6: foto.src = fotoPerfil.src = 'img/foto5.jpeg'; break;
+      case 7: foto.src = fotoPerfil.src = 'img/foto6.jpeg'; break;
+      case 8: foto.src = fotoPerfil.src = 'img/foto7.jpeg'; break;
+      default: foto.src = 'https://i.postimg.cc/gJg6vRMH/image.png'; break;
     }
+
   } catch (error) {
     document.getElementById('mensagem').innerText = 'Erro na API: ' + error.message;
   }

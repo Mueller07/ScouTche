@@ -32,7 +32,7 @@ export const UserController = {
   },
 
   register: async (req: Request, res: Response) => {
-    const { nome, email, senha, tipoConta } = req.body;
+    const { nome, email,nascimento, senha, tipoConta } = req.body;
   
     // Campos obrigatórios
     if (!nome) {
@@ -76,6 +76,7 @@ export const UserController = {
       const newUser = userRepository.create({
         nome,
         email,
+        nascimento,
         senha: hashedPassword,
         tipoConta: tipoConta.toLowerCase(),
         avatar: 0,

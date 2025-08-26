@@ -15,10 +15,10 @@ export class Evento{
     @Column({type: "varchar", length: 255})
     desc: string    
 
-    @Column({ type: "varchar", length: 8 }) // ✅ CORRETO
+    @Column({ type: "varchar", length: 255 }) // ✅ CORRETO
     cep: string;
 
-    @Column({type: "enum", enum: ['Basquete', 'Futebol', 'Volei','Handebol'], nullable: false})
+    @Column({type: "enum", enum: ['Basquete', 'Futebol', 'Volei'], nullable: false})
     modalidade: string //USAR CHECK
 
     
