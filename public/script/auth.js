@@ -1,5 +1,6 @@
 // auth.js
 
+
 const modal = document.getElementById('modal-auth');
 const btnLogin = document.getElementById('btn-login');
 const btnSignup = document.getElementById('btn-signup');
@@ -149,3 +150,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+

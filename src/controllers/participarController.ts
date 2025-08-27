@@ -10,7 +10,7 @@ const campeonatoRepository = AppDataSource.getRepository(Evento);
 
 export class participanteController {
   async entryCamp(req: Request, res: Response) {
-    const { userId, campId } = req.body; // camelCase melhor
+    const { userId, campId } = req.body; 
 
     const user = await userRepository.findOneBy({ id: Number(userId) });
     if (!user) {
@@ -24,10 +24,10 @@ export class participanteController {
       return;
     }
 
-    // Cria o participante ligando as entidades corretas
+    
     const participante = participantesRepository.create({
       userId: user,
-      eventoId: campeonato, // nome correto do campo na entidade Participar
+      eventoId: campeonato, 
     });
 
     await participantesRepository.save(participante);

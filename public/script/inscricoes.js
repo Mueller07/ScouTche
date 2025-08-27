@@ -52,7 +52,7 @@ function criarCardEvento(evento) {
   // largura fixa do card
   col.style.flex = "0 0 300px";
   col.style.margin = "0.5rem";
-  
+
   // Escolher imagem de acordo com a modalidade
   let imagem;
   switch ((evento.modalidade || "").toLowerCase()) {
@@ -93,36 +93,36 @@ async function abrirModalEvento(id) {
       <p><strong>Tipo:</strong> ${evento.tipo}</p>
       <p><strong>Modalidade:</strong> ${evento.modalidade}</p>
       <p><strong>Local:</strong> ${evento.cep}</p>
-      <p><strong>Descrição:</strong> ${evento.desc || "Sem descrição"}</p>
+      <p><strong>Descrição:</strong> ${evento.desc}</p>
     `;
 
     const botao = document.getElementById("modalBotaoAcao");
 
-// Remover todas as classes de cor do Bootstrap
-botao.classList.remove("btn-primary", "btn-success", "btn-danger");
+    // Remover todas as classes de cor do Bootstrap
+    botao.classList.remove("btn-primary", "btn-success", "btn-danger");
 
-// Adicionar cor correta de acordo com a página
-if (window.location.pathname.includes("home.html")) {
-  botao.innerText = "Participar";
-  botao.classList.add("btn-success"); // verde
-  botao.onclick = () => {
-    alert(`Você participou do evento ${evento.nome}`);
-    bootstrap.Modal.getInstance(document.getElementById("modalEvento")).hide();
-  };
-} else if (window.location.pathname.includes("inscricoes.html")) {
-  botao.innerText = "Sair do evento";
-  botao.classList.add("btn-danger"); // vermelho
-  botao.onclick = () => {
-    alert(`Você saiu do evento ${evento.nome}`);
-    bootstrap.Modal.getInstance(document.getElementById("modalEvento")).hide();
-  };
-}
+    // Adicionar cor correta de acordo com a página
+    if (window.location.pathname.includes("home.html")) {
+      botao.innerText = "Participar";
+      botao.classList.add("btn-success"); // verde
+      botao.onclick = () => {
+        alert(`Você participou do evento ${evento.nome}`);
+        bootstrap.Modal.getInstance(document.getElementById("modalEvento")).hide();
+      };
+    } else if (window.location.pathname.includes("inscricoes.html")) {
+      botao.innerText = "Sair do evento";
+      botao.classList.add("btn-danger"); // vermelho
+      botao.onclick = () => {
+        alert(`Você saiu do evento ${evento.nome}`);
+        bootstrap.Modal.getInstance(document.getElementById("modalEvento")).hide();
+      };
+    }
 
-// Forçar repaint do botão antes de abrir o modal
-botao.offsetHeight; // isso força o navegador a aplicar as classes imediatamente
+    // Forçar repaint do botão antes de abrir o modal
+    botao.offsetHeight; // isso força o navegador a aplicar as classes imediatamente
 
-// Agora mostrar o modal
-new bootstrap.Modal(document.getElementById("modalEvento")).show();
+    // Agora mostrar o modal
+    new bootstrap.Modal(document.getElementById("modalEvento")).show();
 
   } catch (err) {
     console.error(err);

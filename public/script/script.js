@@ -214,29 +214,29 @@ async function buscarLogradouro(cep) {
 // Carregar foto do perfil
 async function carregarFoto() {
   const foto = document.getElementById('fotoP');
-  const fotoPerfil = document.getElementById('fotoPerfil');
   const usuario = JSON.parse(localStorage.getItem('usuarioDados'));
   let pers = Number(usuario.id);
 
   try {
     const res = await fetch(`http://localhost:3000/api/get/perfil/${pers}`);
-    if (!res.ok) throw new Error("Erro ao carregar perfil");
-    const data = await res.json();
-    const avatar = Number(data.avatar);
+    if (res.ok) {
+      const data = await res.json();
+      const avatar = Number(data.avatar);
 
-    switch (avatar) {
-      case 1: foto.src = fotoPerfil.src = 'img/foto0.jpeg'; break;
-      case 2: foto.src = 'img/foto1.jpeg'; fotoPerfil.src = 'img/foto2.jpeg'; break;
-      case 3: foto.src = fotoPerfil.src = 'img/foto2.jpeg'; break;
-      case 4: foto.src = fotoPerfil.src = 'img/foto3.jpeg'; break;
-      case 5: foto.src = fotoPerfil.src = 'img/foto4.jpeg'; break;
-      case 6: foto.src = fotoPerfil.src = 'img/foto5.jpeg'; break;
-      case 7: foto.src = fotoPerfil.src = 'img/foto6.jpeg'; break;
-      case 8: foto.src = fotoPerfil.src = 'img/foto7.jpeg'; break;
-      default: foto.src = 'https://i.postimg.cc/gJg6vRMH/image.png'; break;
+      const fotoPerfil = document.getElementById('fotoPMobile') || {};
+
+      switch (avatar) {
+        case 1: foto.src = 'img/foto0.jpeg'; fotoPerfil.src = 'img/foto0.jpeg'; break;
+        case 2: foto.src = 'img/foto1.jpeg'; fotoPerfil.src = 'img/foto1.jpeg'; break;
+        case 3: foto.src = 'img/foto2.jpeg'; fotoPerfil.src = 'img/foto2.jpeg'; break;
+        case 4: foto.src = 'img/foto3.jpeg'; fotoPerfil.src = 'img/foto3.jpeg'; break;
+        case 5: foto.src = 'img/foto4.jpeg'; fotoPerfil.src = 'img/foto4.jpeg'; break;
+        case 6: foto.src = 'img/foto5.jpeg'; fotoPerfil.src = 'img/foto5.jpeg'; break;
+        case 7: foto.src = 'img/foto6.jpeg'; fotoPerfil.src = 'img/foto6.jpeg'; break;
+        default: foto.src = 'https://i.postimg.cc/gJg6vRMH/image.png'; break;
+      }
     }
-
   } catch (error) {
-    document.getElementById('mensagem').innerText = 'Erro na API: ' + error.message;
+    mostrarAlerta("Erro ao carregar perfil: " + error.message, "danger");
   }
 }
