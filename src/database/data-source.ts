@@ -10,7 +10,7 @@ export const AppDataSource = new DataSource({
   host: 'localhost',      // Ajuste para seu host
   port: 3306,             // Ajuste para sua porta
   username: 'root',
-  password: 'ROOT',
+  password: 'root',
   database: 'scoutche',
   entities: [User,Evento,Participar],
   synchronize: true,      // só use true para dev

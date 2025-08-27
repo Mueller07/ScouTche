@@ -307,3 +307,12 @@ main {
 .btn-excluir:hover {
     background-color: #bb2d3b;
 }
+
+.primeira{
+    margin-top: 3%;
+}
+
+.primeira h5#tituloH {
+    margin-bottom: 30px; /* ajuste o valor para aumentar ou diminuir o espaço */
+  }
+  
