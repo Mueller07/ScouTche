@@ -2,8 +2,7 @@ import { Request, Response } from 'express';
 import { AppDataSource } from '../database/data-source';
 import { User } from '../models/User';
 import bcrypt from 'bcryptjs';
-import fs from 'fs';
-import path from 'path';
+
 import { UserRepository } from "../repositories/UserRepositorie"
 import * as jwt from "jsonwebtoken";
 import "dotenv/config";
@@ -249,4 +248,5 @@ export const UserController = {
       return
     }
   }
+
 };

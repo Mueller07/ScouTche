@@ -240,3 +240,26 @@ async function carregarFoto() {
     mostrarAlerta("Erro ao carregar perfil: " + error.message, "danger");
   }
 }
+
+  const formCadastro = document.getElementById("signup-form");
+    const etapaTipoConta = document.getElementById("tipo-conta-etapa");
+    const btnVoltar = document.getElementById("voltar-cadastro");
+    const btnFinalizar = document.getElementById("finalizar-cadastro");
+    const radios = document.querySelectorAll("input[name='tipoConta']");
+
+    // Quando clicar em "Voltar"
+    btnVoltar.addEventListener("click", () => {
+        etapaTipoConta.style.display = "none";
+        formCadastro.style.display = "block";
+    });
+
+    // Mostrar botão "Finalizar Cadastro" somente quando escolher um tipo de conta
+    radios.forEach(radio => {
+        radio.addEventListener("change", () => {
+            btnFinalizar.style.display = "inline-block";
+        });
+    });
+
+    
+
+    

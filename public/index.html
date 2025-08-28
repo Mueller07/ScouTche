@@ -89,10 +89,10 @@
 
     <main>
         <section class="busca-filtros">
-            <div class="input-container">
-                <input type="text" placeholder="Buscar Campeonatos, Peneiras, Clubes..." class="input-busca" />
-                <img src="https://i.postimg.cc/brSN3XKD/icons8-search-52.png" alt="lupa" class="input-icon" />
-            </div>
+      <div class="input-container">
+        <input type="text" placeholder="Buscar Campeonatos, Peneiras, Clubes..." class="input-busca" id="inputBusca" />
+        <img src="https://i.postimg.cc/brSN3XKD/icons8-search-52.png" alt="lupa" class="input-icon" id="btnBusca" />
+      </div>
 
             <div class="filtros">
                 <div class="filtro-dropdown">
@@ -145,64 +145,64 @@
         </section>
 
         <section class="carrossel-eventos">
-            <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
-              <div class="carousel-indicators">
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
-                  aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+            aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+
+        <div class="carousel-inner">
+          <div class="carousel-item active slide1">
+            <div class="container">
+              <div class="carousel-caption text-start">
+                <h1>Crie um Evento Entre seus amigos</h1>
+                <p>Acesse a página "Criar Evento"</p>
+                <p><a class="btn btn-lg btn-um" href="./criarEvento.html">Saiba Mais</a></p>
               </div>
-      
-              <div class="carousel-inner">
-                <div class="carousel-item active slide1">
-                  <div class="container">
-                    <div class="carousel-caption text-start">
-                      <h1>Crie um Evento Entre seus amigos</h1>
-                      <p>Acesse a página "Criar Evento"</p>
-                      <p><a class="btn btn-lg btn-um" href="./criarEvento.html">Saiba Mais</a></p>
-                    </div>
-                  </div>
-                </div>
-      
-                <div class="carousel-item slide2">
-                  <div class="container">
-                    <div class="carousel-caption text-start">
-                      <h1>Participe de um Evento</h1>
-                      <p>Clique em "Saiba Mais"</p>
-                      <p><a class="btn btn-lg btn-dois" href="#eventos">Saiba Mais</a></p>
-                    </div>
-                  </div>
-                </div>
-      
-                <div class="carousel-item slide3">
-                  <div class="container">
-                    <div class="carousel-caption text-start">
-                      <h1>Veja as Suas Inscrições</h1>
-                      <p>Acesse a página "Inscrições"</p>
-                      <p><a class="btn btn-lg btn-tres" href="./inscricoes.html">Saiba Mais</a></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-      
-      
-              <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Anterior</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Próximo</span>
-              </button>
             </div>
-          </section>
-      
-        
-          <section class="eventos" id="eventos">
-            <div id="outros-jogos">
-              <ul>
-                <li>BORA PRO JOGO?</li>
-                </ul>
+          </div>
+
+          <div class="carousel-item slide2">
+            <div class="container">
+              <div class="carousel-caption text-start">
+                <h1>Participe de um Evento</h1>
+                <p>Clique em "Saiba Mais"</p>
+                <p><a class="btn btn-lg btn-dois" href="#eventos">Saiba Mais</a></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-item slide3">
+            <div class="container">
+              <div class="carousel-caption text-start">
+                <h1>Veja as Suas Inscrições</h1>
+                <p>Acesse a página "Inscrições"</p>
+                <p><a class="btn btn-lg btn-tres" href="./inscricoes.html">Saiba Mais</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Próximo</span>
+        </button>
+      </div>
+    </section>
+
+  
+    <section class="eventos" id="eventos">
+      <div id="outros-jogos">
+        <ul>
+          <li>BORA PRO JOGO?</li>
+        </ul>
             </div>
         </section>
     </main>
@@ -224,39 +224,43 @@
             </div>
 
             <!-- CADASTRO -->
-            <div class="form-container sign-up-container">
-                <form id="signup-form">
-                    <h2>Cadastro</h2>
-                    <input type="text" placeholder="Nome" required />
-                    <label for="nascimento">Data de Nascimento:</label>
-                    <input type="date" id="nascimento" name="nascimento" required />
-                    <input type="email" placeholder="Seu e-mail" required />
-                    <input type="password" placeholder="Senha" required />
-                    <input type="password" placeholder="Confirmar senha" required />
-                    <button type="submit">Próximo</button>  
-                </form>
-                <div id="tipo-conta-etapa" style="display: none; text-align: left;">
-                    <h2 style="text-align: center;">Escolha o tipo de conta</h2>
-                    <form id="form-tipo-conta">
-                        <div class="radio-option">
-                            <input type="radio" id="equipe" name="tipoConta" value="clube" />
-                            <label for="equipe">Equipe Esportiva</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" id="profissional" name="tipoConta" value="profissional" />
-                            <label for="profissional">Profissional</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" id="atleta" name="tipoConta" value="atleta" />
-                            <label for="atleta">Atleta</label>
-                        </div>
-                        <div style="text-align: center;">
-                            <button id="finalizar-cadastro" class="btn btn-primary mt-3" type="submit"
-                                style="display: none;">Finalizar Cadastro</button>
-                        </div>
-                    </form>
-                </div>
+           <div class="form-container sign-up-container">
 
+        <!-- Etapa 1 -->
+        <form id="signup-form">
+          <h2>Cadastro</h2>
+          <input type="text" placeholder="Nome" required />
+          <label for="nascimento">Data de Nascimento:</label>
+          <input type="date" id="nascimento" name="nascimento" required />
+          <input type="email" placeholder="Seu e-mail" required />
+          <input type="password" placeholder="Senha" required id="senha" />
+          <input type="password" placeholder="Confirmar senha" required id="confirmar-senha" />
+          <div id="senha-erro" style="color: red; font-size: 14px; margin-top: -5px;"></div>
+          <button type="submit">Próximo</button>
+        </form>
+
+        
+        <div id="tipo-conta-etapa" style="display: none; text-align: left;">
+          <h2 style="text-align: center;">Escolha o tipo de conta</h2>
+          <form id="form-tipo-conta">
+            <div class="radio-option">
+              <input type="radio" id="equipe" name="tipoConta" value="clube" />
+              <label for="equipe">Equipe Esportiva</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="profissional" name="tipoConta" value="profissional" />
+              <label for="profissional">Profissional</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="atleta" name="tipoConta" value="atleta" />
+              <label for="atleta">Atleta</label>
+            </div>
+            <div style="text-align: center;">
+              <button id="finalizar-cadastro" class="btn btn-primary mt-3" type="submit" style="display: none;">Finalizar Cadastro</button>
+              <button id="voltar-cadastro" class="btn btn-secondary mt-3" type="button">Voltar</button>
+            </div>
+          </form>
+        </div>
 
 
 
@@ -287,6 +291,7 @@
     <script src="./script/script.js"></script>
     <script src="./script/auth.js"></script>
     <script src="./script/modalFlutuante.js"></script>
+    <script src="./script/BuscarEven.js"></script>
 </body>
 
 </html>

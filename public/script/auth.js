@@ -1,6 +1,5 @@
 // auth.js
 
-
 const modal = document.getElementById('modal-auth');
 const btnLogin = document.getElementById('btn-login');
 const btnSignup = document.getElementById('btn-signup');
@@ -30,10 +29,9 @@ modal.addEventListener('click', (e) => {
 backToSignup.addEventListener('click', () => authContainer.classList.add('right-panel-active'));
 backToLogin.addEventListener('click', () => authContainer.classList.remove('right-panel-active'));
 
-// Evento do formulário de login
+// Login
 document.getElementById('login-form').addEventListener('submit', async (e) => {
   e.preventDefault();
-
   const email = e.target.email.value.trim();
   const senha = e.target.senha.value.trim();
 
@@ -50,19 +48,12 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     });
 
     const resultado = await resposta.json();
-    console.log('teste resposta', );
     if (resposta.ok) {
-    alert('Login realizado com sucesso!');
-
-    localStorage.setItem('usuarioDados', JSON.stringify(resultado.usuario));
-    localStorage.setItem('token', resultado.token.token);
-    console.log('TESTE LOCAL', localStorage.getItem('token'));
-    localStorage.setItem('usuarioLogado', 'true');
-   
+      alert('Login realizado com sucesso!');
+      localStorage.setItem('usuarioDados', JSON.stringify(resultado.usuario));
+      localStorage.setItem('token', resultado.token.token);
+      localStorage.setItem('usuarioLogado', 'true');
       closeModal();
-
-      console.log('Login OK, redirecionando para home');
-      // Redireciona para a home após fechar modal
       window.location.href = 'home.html';
     } else {
       alert(resultado.mensagem || 'Erro no login');
@@ -73,25 +64,63 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
   }
 });
 
-// Cadastro e tipo de conta
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('signup-form');
   const tipoContaEtapa = document.getElementById('tipo-conta-etapa');
-  const finalizarBtn = document.getElementById('finalizar-cadastro');
+  const senhaInput = document.getElementById('senha');
+  const confirmarInput = document.getElementById('confirmar-senha');
+  const erroDiv = document.getElementById('senha-erro');
+  const finalizarBtn = document.getElementById('finalizar-cadastro'); 
+  const radios = document.querySelectorAll("input[name='tipoConta']");
+  const btnVoltar = document.getElementById('voltar-cadastro');
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    form.style.display = 'none';
-    tipoContaEtapa.style.display = 'flex';
+  // Validação em tempo real das senhas
+  confirmarInput.addEventListener('input', () => {
+    erroDiv.textContent = (confirmarInput.value !== senhaInput.value) 
+      ? 'As senhas não coincidem' 
+      : '';
   });
 
-  const radios = document.querySelectorAll("input[name='tipoConta']");
-  radios.forEach((radio) => {
+  // Botão "Próximo" / submit da primeira etapa
+  form.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const senha = senhaInput.value.trim();
+  const confirmar = confirmarInput.value.trim();
+
+  // Se campos vazios
+  if (!senha || !confirmar) {
+    alert('Por favor, preencha todos os campos de senha.');
+    return;
+  }
+
+  // Se senhas não coincidirem
+  if (senha !== confirmar) {
+    erroDiv.textContent = 'As senhas não coincidem';
+    alert('As senhas não coincidem');
+    return; // interrompe o código, não avança
+  }
+
+  // Só chega aqui se senhas coincidirem
+  erroDiv.textContent = '';
+  form.style.display = 'none';
+  tipoContaEtapa.style.display = 'block';
+});
+
+  // Botão "Voltar" da segunda etapa
+  btnVoltar.addEventListener('click', () => {
+    tipoContaEtapa.style.display = 'none';
+    form.style.display = 'flex';
+  });
+
+  // Mostrar botão "Finalizar Cadastro" quando escolher tipo de conta
+  radios.forEach(radio => {
     radio.addEventListener('change', () => {
-      finalizarBtn.style.display = 'block';
+      finalizarBtn.style.display = 'inline-block';
     });
   });
 
+  // Finalizar cadastro
   finalizarBtn.addEventListener('click', async (e) => {
     e.preventDefault();
 
@@ -112,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('Por favor, preencha todos os campos.');
       return;
     }
+
     if (senha !== confirmarSenha) {
       alert('As senhas não coincidem.');
       return;
@@ -120,9 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const resposta = await fetch('http://localhost:3000/api/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           nome,
           nascimento,
@@ -134,13 +162,13 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       const resultado = await resposta.json();
-
       if (resposta.ok) {
         alert('Cadastro confirmado com sucesso!');
-        closeModal();
         form.reset();
         tipoContaEtapa.style.display = 'none';
         form.style.display = 'flex';
+        finalizarBtn.style.display = 'none';
+        closeModal();
       } else {
         alert(resultado.mensagem || 'Erro no cadastro');
       }
@@ -150,4 +178,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
-

@@ -7,7 +7,7 @@ export class Evento{
     id!: number;
 
     @Column({type: "enum", enum: ['Seletiva', 'Torneio', 'Jogo'], nullable: false})
-    tipo: string //USAR CHECK
+    tipo: string 
 
     @Column({type: "varchar", length: 255, nullable: false})
     nome: string
@@ -15,11 +15,14 @@ export class Evento{
     @Column({type: "varchar", length: 255})
     desc: string    
 
-    @Column({ type: "varchar", length: 255 }) // ✅ CORRETO
+    @Column({ type: "varchar", length: 255 })
     cep: string;
 
     @Column({type: "enum", enum: ['Basquete', 'Futebol', 'Volei'], nullable: false})
-    modalidade: string //USAR CHECK
+    modalidade: string 
+
+@Column({ type: "int", default: 0 })
+    inscritos!: number;
 
     
    @ManyToOne(() => User, (user) => user.eventos,{ nullable: true })
@@ -28,7 +31,7 @@ export class Evento{
     @OneToMany(() => Participar, (participar:Participar) => participar.eventoId,{ nullable: true })
     participar!:Participar[];
 
-    //IDCLUBE E IDUSUARIO
+   
 
     constructor(tipo: string,nome: string,desc: string ,cep: string, modalidade: string, user:User){
         this.tipo = tipo
