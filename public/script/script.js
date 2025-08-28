@@ -1,5 +1,5 @@
-// Ativa o link do menu
-const links = document.querySelectorAll('.nav-link');
+// Navegação do header
+const links = document.querySelectorAll('header .nav-link');
 
 links.forEach(link => {
   link.addEventListener('click', (e) => {
@@ -9,7 +9,7 @@ links.forEach(link => {
   });
 });
 
-// Dropdowns
+// Dropdowns de filtros
 document.querySelectorAll('.filtro').forEach(button => {
   button.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -33,7 +33,6 @@ document.querySelectorAll('.filtro').forEach(button => {
   });
 });
 
-// Fecha dropdown ao clicar fora
 document.addEventListener('click', (e) => {
   if (!e.target.closest('.filtro-dropdown')) {
     document.querySelectorAll('.filtro-dropdown').forEach(fd => {
@@ -43,7 +42,7 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// Atualiza a descrição conforme o slide do carrossel
+// Controle do carousel
 const carousel = document.querySelector('#myCarousel');
 
 if (carousel) {
@@ -51,22 +50,17 @@ if (carousel) {
     const activeSlide = carousel.querySelector('.carousel-item.active');
     const index = Array.from(carousel.querySelectorAll('.carousel-item')).indexOf(activeSlide);
 
-    // Esconde tudo primeiro
     document.querySelector('#info-futsal').classList.add('d-none');
     document.querySelector('#info-volei').classList.add('d-none');
     document.querySelector('#info-basquete').classList.add('d-none');
 
-    if (index === 0) {
-      document.querySelector('#info-futsal').classList.remove('d-none');
-    } else if (index === 1) {
-      document.querySelector('#info-volei').classList.remove('d-none');
-    } else if (index === 2) {
-      document.querySelector('#info-basquete').classList.remove('d-none');
-    }
+    if (index === 0) document.querySelector('#info-futsal').classList.remove('d-none');
+    else if (index === 1) document.querySelector('#info-volei').classList.remove('d-none');
+    else if (index === 2) document.querySelector('#info-basquete').classList.remove('d-none');
   });
 }
 
-
+// Carregar avatar e abrir modal
 document.addEventListener("DOMContentLoaded", () => {
   const btnEscolherAvatar = document.getElementById('btnEscolherAvatar');
   const modalAvatar = document.getElementById('modalAvatar');
@@ -74,24 +68,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const avatarOptions = document.querySelectorAll('.avatar-option');
   const fotoPerfil = document.getElementById('fotoPerfil');
 
-  // Abrir modal avatar
-  btnEscolherAvatar.addEventListener('click', () => {
-    modalAvatar.classList.remove('d-none');
-  });
+  if (btnEscolherAvatar) {
+    btnEscolherAvatar.addEventListener('click', () => modalAvatar.classList.remove('d-none'));
+  }
 
-  // Fechar modal avatar ao clicar no botão X
-  closeAvatar.addEventListener('click', () => {
-    modalAvatar.classList.add('d-none');
-  });
+  if (closeAvatar) {
+    closeAvatar.addEventListener('click', () => modalAvatar.classList.add('d-none'));
+  }
 
-  // Fechar modal avatar ao clicar fora da caixa de conteúdo
-  modalAvatar.addEventListener('click', (e) => {
-    if (e.target === modalAvatar) {
-      modalAvatar.classList.add('d-none');
-    }
-  });
+  if (modalAvatar) {
+    modalAvatar.addEventListener('click', (e) => {
+      if (e.target === modalAvatar) modalAvatar.classList.add('d-none');
+    });
+  }
 
-  // Selecionar avatar, salvar no localStorage e atualizar imagem
   avatarOptions.forEach((img) => {
     img.addEventListener('click', () => {
       const usuario = JSON.parse(localStorage.getItem('usuarioDados')) || {};
@@ -102,68 +92,227 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Carregar avatar salvo ao abrir página
   const usuarioSalvo = JSON.parse(localStorage.getItem('usuarioDados'));
-  if (usuarioSalvo?.avatar) {
-    fotoPerfil.src = usuarioSalvo.avatar;
-  }
+  if (usuarioSalvo?.avatar) fotoPerfil.src = usuarioSalvo.avatar;
+
+  carregarEventos();
 });
 
+// Função para carregar eventos
+async function carregarEventos() {
+  try {
+    const res = await fetch(`http://localhost:3000/api/peneira`);
+    if (!res.ok) throw new Error("Erro ao carregar eventos");
+    const eventos = await res.json();
+
+    const row = document.querySelector(".container .row");
+    if (!row) return console.error("Elemento .container .row não encontrado");
+
+    row.innerHTML = "";
+
+    eventos.forEach(evento => {
+      let imagem;
+      switch ((evento.modalidade || "").toLowerCase()) {
+        case "futebol": imagem = "https://i.postimg.cc/KjnJQfP1/image.png"; break;
+        case "vôlei": imagem = "https://i.postimg.cc/VkPKSxcX/image.png"; break;
+        case "basquete": imagem = "https://i.postimg.cc/rF0WNymh/image.png"; break;
+        default: imagem = "https://i.postimg.cc/t43d06TM/image.png"; break;
+      }
+
+      const col = document.createElement("div");
+      col.classList.add("col-md-3", "mb-3"); 
+      col.innerHTML = `
+  <div class="card h-100" style="font-size: 0.9rem;"> <!-- card menor com fonte menor -->
+    <img class="card-img-top" src="${imagem}" alt="Imagem do evento" 
+         style="height: 150px; width: 100%; object-fit: cover;"> <!-- altura menor -->
+    <div class="card-body p-2"> <!-- menos padding -->
+      <h5 class="card-title fw-bold" style="font-size: 1rem;">${evento.nome}</h5>
+      <p class="card-text mb-2" style="font-size: 0.85rem;">
+        <strong>Tipo:</strong> ${evento.tipo}<br>
+        <strong>Modalidade:</strong> ${evento.modalidade}<br>
+      </p>
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary btn-mais btn-sm" data-id="${evento.id}">
+            Mais Informações
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+`;
+
+
+      row.appendChild(col);
+    });
+
+    document.querySelectorAll(".btn-mais").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const id = btn.dataset.id;
+        try {
+          const res = await fetch(`http://localhost:3000/api/peneira/${id}`);
+          const evento = await res.json();
+
+          document.getElementById("modalTitulo").innerText = evento.nome;
+          document.getElementById("modalCorpo").innerHTML = `
+            <p><strong>Tipo:</strong> ${evento.tipo}</p>
+            <p><strong>Modalidade:</strong> ${evento.modalidade}</p>
+            <p><strong>Local:</strong> ${evento.cep}</p>
+            <p><strong>Descrição:</strong> ${evento.desc || "Sem descrição"}</p>
+          `;
+
+          const botao = document.getElementById("modalBotaoAcao");
+
+          // remover classes antigas do Bootstrap
+          botao.classList.remove("btn-primary", "btn-success", "btn-danger");
+          
+          // definir estilo inline ou adicionar a nova classe
+          if (window.location.pathname.includes("home.html")) {
+            botao.innerText = "Participar";
+            botao.classList.add("btn-success"); // ou botao.style.backgroundColor = "#28a745"
+            botao.onclick = () => {
+              alert(`Você participou do evento ${evento.nome}`);
+              bootstrap.Modal.getInstance(document.getElementById("modalEvento")).hide();
+            };
+          } else if (window.location.pathname.includes("inscricoes.html")) {
+            botao.innerText = "Sair do evento";
+            botao.classList.add("btn-danger"); // ou botao.style.backgroundColor = "#dc3545"
+            botao.onclick = () => {
+              alert(`Você saiu do evento ${evento.nome}`);
+              bootstrap.Modal.getInstance(document.getElementById("modalEvento")).hide();
+            };
+          }
+          
+                    new bootstrap.Modal(document.getElementById("modalEvento")).show();
+          
+        } catch (err) {
+          console.error(err);
+          alert("Erro ao carregar informações do evento.");
+        }
+      });
+    });
+
+  } catch (err) {
+    console.error("Erro ao carregar eventos:", err);
+  }
+}
+
+// Buscar logradouro pelo CEP
+async function buscarLogradouro(cep) {
+  try {
+    const cepLimpo = cep.replace(/\D/g, "");
+    const res = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+    if (!res.ok) throw new Error("Erro ao consultar CEP");
+    const data = await res.json();
+    return data.logradouro || "Logradouro não encontrado";
+  } catch (err) {
+    console.error("Erro ViaCEP:", err);
+    return "Erro ao consultar CEP";
+  }
+}
+
+// Carregar foto do perfil
 async function carregarFoto() {
   const foto = document.getElementById('fotoP');
   const usuario = JSON.parse(localStorage.getItem('usuarioDados'));
- 
-
   let pers = Number(usuario.id);
 
   try {
-    const res = await fetch(`http://localhost:3000/api/get/perfil/${pers}`); // Troque 123 pelo ID real
+    const res = await fetch(`http://localhost:3000/api/get/perfil/${pers}`);
     if (res.ok) {
-      const data = await res.json(); // Extrai o JSON da resposta
-      const pers = Number(data.avatar); // Garante que seja um número
+      const data = await res.json();
+      const avatar = Number(data.avatar);
 
-      switch (pers) {
-        case 1:
-          foto.src = 'img/foto0.jpeg';
-          fotoPerfil.src = 'img/foto0.jpeg';
-          break;
-        case 2:
-          foto.src = 'img/foto1.jpeg';
-          fotoPerfil.src = 'img/foto2.jpeg';
-          break;
-        case 3:
-          foto.src = 'img/foto2.jpeg';
-          fotoPerfil.src = 'img/foto2.jpeg';
-          break;
-        case 4:
-          foto.src = 'img/foto3.jpeg';
-          fotoPerfil.src = 'img/foto3.jpeg';
-          break;
-        case 5:
-          foto.src = 'img/foto4.jpeg';
-          fotoPerfil.src = 'img/foto4.jpeg';
-          break;
-        case 6:
-          foto.src = 'img/foto5.jpeg';
-          fotoPerfil.src = 'img/foto5.jpeg';
-          break;
-        case 7:
-          foto.src = 'img/foto6.jpeg';
-          fotoPerfil.src = 'img/foto6.jpeg';
-          break;
-        case 8:
-          foto.src = 'img/foto7.jpeg';
-          fotoPerfil.src = 'img/foto7.jpeg';
-        
-          break;
-        default:
-          foto.src = 'https://i.postimg.cc/gJg6vRMH/image.png';
-          break;
+      const fotoPerfil = document.getElementById('fotoPMobile') || {};
+
+      switch (avatar) {
+        case 1: foto.src = 'img/foto0.jpeg'; fotoPerfil.src = 'img/foto0.jpeg'; break;
+        case 2: foto.src = 'img/foto1.jpeg'; fotoPerfil.src = 'img/foto1.jpeg'; break;
+        case 3: foto.src = 'img/foto2.jpeg'; fotoPerfil.src = 'img/foto2.jpeg'; break;
+        case 4: foto.src = 'img/foto3.jpeg'; fotoPerfil.src = 'img/foto3.jpeg'; break;
+        case 5: foto.src = 'img/foto4.jpeg'; fotoPerfil.src = 'img/foto4.jpeg'; break;
+        case 6: foto.src = 'img/foto5.jpeg'; fotoPerfil.src = 'img/foto5.jpeg'; break;
+        case 7: foto.src = 'img/foto6.jpeg'; fotoPerfil.src = 'img/foto6.jpeg'; break;
+        default: foto.src = 'https://i.postimg.cc/gJg6vRMH/image.png'; break;
       }
-    } else {
-      document.getElementById('mensagem').innerText = 'Erro ao carregar perfil.';
     }
   } catch (error) {
-    document.getElementById('mensagem').innerText = 'Erro na API: ' + error.message;
+    mostrarAlerta("Erro ao carregar perfil: " + error.message, "danger");
   }
 }
+
+  const formCadastro = document.getElementById("signup-form");
+    const etapaTipoConta = document.getElementById("tipo-conta-etapa");
+    const btnVoltar = document.getElementById("voltar-cadastro");
+    const btnFinalizar = document.getElementById("finalizar-cadastro");
+    const radios = document.querySelectorAll("input[name='tipoConta']");
+
+    // Quando clicar em "Voltar"
+    btnVoltar.addEventListener("click", () => {
+        etapaTipoConta.style.display = "none";
+        formCadastro.style.display = "block";
+    });
+
+    // Mostrar botão "Finalizar Cadastro" somente quando escolher um tipo de conta
+    radios.forEach(radio => {
+        radio.addEventListener("change", () => {
+            btnFinalizar.style.display = "inline-block";
+        });
+    });
+
+    
+
+    async function entrarEvento(eventoId, userId) {
+      if (!userId || !eventoId) {
+        alert("Usuário ou evento não informado.");
+        return;
+      }
+      try {
+        const response = await fetch("http://localhost:3000/api/participantes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId, eventoId })
+        });
+        if (!response.ok) {
+          const err = await response.json().catch(() => ({}));
+          throw new Error(err.message || "Erro ao participar do evento");
+        }
+        await response.json();
+        alert("Você entrou no evento com sucesso!");
+      } catch (error) {
+        console.error("Erro entrarEvento:", error);
+        alert(error.message || "Erro ao entrar no evento. Tente novamente.");
+      }
+    }
+    
+    // Sair do evento específico
+    async function sairEvento(eventoId, userId) {
+      if (!userId || !eventoId) {
+        alert("Usuário ou evento não informado.");
+        return;
+      }
+      try {
+        const response = await fetch(`http://localhost:3000/api/participantes/${eventoId}/${userId}`, {
+          method: "DELETE"
+        });
+        if (!response.ok) {
+          const err = await response.json().catch(() => ({}));
+          throw new Error(err.message || "Erro ao sair do evento");
+        }
+        alert("Você saiu do evento com sucesso!");
+      } catch (error) {
+        console.error("Erro sairEvento:", error);
+        alert(error.message || "Erro ao sair do evento. Tente novamente.");
+      }
+    }
+    async function obterTotalParticipantes(eventoId) {
+      try {
+        const res = await fetch(`http://localhost:3000/api/participantes/count/${eventoId}`);
+        if (!res.ok) throw new Error("Erro ao buscar total de participantes");
+        const data = await res.json();
+        return data.total;
+      } catch (err) {
+        console.error(err);
+        return 0;
+      }
+    }

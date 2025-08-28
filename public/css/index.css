@@ -155,33 +155,64 @@ html, body {
   url('https://i.postimg.cc/rF0WNymh/image.png');
 }
 
+/* Classe genérica para todos os botões do carrossel */
+.btn-custom {
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  border: none;
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* Botões */
+.btn-custom {
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  border: none;
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* Verde vivo degradê */
 .btn-um {
-  color: black;
-  background-color: rgb(0, 128, 57);
-  border: 0;
+  background: linear-gradient(135deg, #00c853, #b2ff59);
 }
 
 .btn-um:hover {
-  background-color: rgb(0, 58, 26);
+  background: linear-gradient(135deg, #b2ff59, #00c853);
+  transform: scale(1.05);
 }
 
+/* Azul vivo degradê */
 .btn-dois {
-  color: black;
-  background-color: #293dd3;
+  background: linear-gradient(135deg, #2962ff, #448aff);
 }
 
 .btn-dois:hover {
-  background-color: #00112F;
+  background: linear-gradient(135deg, #448aff, #2962ff);
+  transform: scale(1.05);
 }
 
+/* Laranja vibrante degradê */
 .btn-tres {
-  color: black;
-  background-color: #ed8a33;
+  background: linear-gradient(135deg, #d84800, #d84800);
 }
 
 .btn-tres:hover {
-  background-color: rgb(152, 64, 0);
+  background: linear-gradient(135deg, #d84800, #d84800);
+  transform: scale(1.05);
 }
+
 
 .carousel-caption {
   background-color: rgba(0, 0, 0, 0.4);
@@ -230,4 +261,8 @@ html, body {
 #btn-signup:hover {
   background-color: #0b5ed7;
   border-color: #0a58ca;
+}
+
+#eventos{
+  margin-top: 4%;
 }

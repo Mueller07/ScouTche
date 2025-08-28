@@ -193,3 +193,65 @@ html, body {
   height: auto;
   margin-right: 8px;
 }
+
+/* Classe genérica para todos os botões do carrossel */
+.btn-custom {
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  border: none;
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* Botões */
+.btn-custom {
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  border: none;
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* Verde vivo degradê */
+.btn-um {
+  background: linear-gradient(135deg, #00c853, #b2ff59);
+}
+
+.btn-um:hover {
+  background: linear-gradient(135deg, #b2ff59, #00c853);
+  transform: scale(1.05);
+}
+
+/* Azul vivo degradê */
+.btn-dois {
+  background: linear-gradient(135deg, #2962ff, #448aff);
+}
+
+.btn-dois:hover {
+  background: linear-gradient(135deg, #448aff, #2962ff);
+  transform: scale(1.05);
+}
+
+/* Laranja vibrante degradê */
+.btn-tres {
+  background: linear-gradient(135deg, #d84800, #ff7b39);
+}
+
+.btn-tres:hover {
+  background: linear-gradient(135deg, #ff7b39, #d84800);
+  transform: scale(1.05);
+}
+
+#eventos{
+  margin-top: 4%;
+}

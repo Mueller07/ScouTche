@@ -53,5 +53,8 @@
         text-align: center;
     }
 
+    #profile-container {
+    display: none !important;
+}
     
 }

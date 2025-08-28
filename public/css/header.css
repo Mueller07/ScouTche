@@ -11,6 +11,9 @@ header {
     background: linear-gradient(90deg, #00112F, #003366);
     padding: 15px 30px;
     border-bottom: 2px solid #0c0c4d;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; /* ou 800, 900 para ainda mais negrito */
+    font-size: 1rem;
 }
 
 header a:first-of-type {
@@ -34,7 +37,7 @@ header a:first-of-type span {
 
 nav#nav {
     display: flex;
-    gap: 20px;
+    gap: 30px;
 }
 
 nav#nav a {

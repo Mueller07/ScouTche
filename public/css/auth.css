@@ -117,6 +117,29 @@ form button:active {
   transition: none;
 }
 
+#voltar-cadastro {
+  background: transparent;  
+  color: #003366;           
+  border: 1px solid #003366;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+
+#voltar-cadastro:hover {
+  background: rgba(0, 51, 102, 0.05); 
+}
+
+#voltar-cadastro:active {
+  transform: scale(0.97);
+}
+
+
 /* Overlay */
 .overlay-container {
   position: absolute;

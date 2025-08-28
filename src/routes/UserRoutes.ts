@@ -15,6 +15,8 @@ router.post('/login', UserController.login);
 router.put('/perfil/:id', authenticateToken,UserController.atualizarPerfil);
 router.get('/get/perfil/:id',authenticateToken, UserController.listarPerfil);
 router.put('/perfil/:id/avatar',authenticateToken, UserController.uploadFoto);
+router.delete('/perfil/:id', authenticateToken, UserController.excluirConta);
+
 
 
 

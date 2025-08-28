@@ -1,0 +1,43 @@
+@media (max-width: 768px) {
+    .modal-login-container {
+        width: 95vw;
+        height: 95vh;
+        padding: 1rem;
+        flex-direction: column;
+        justify-content: flex-start;
+        overflow-y: auto;
+        border-radius: 10px;
+    }
+
+    .form-container {
+        width: 100% !important;
+        padding: 1rem;
+    }
+
+    .overlay-container {
+        display: none;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 2rem;
+        background: transparent;
+        color: white;
+        border: none;
+    }
+
+    #tipo-conta-etapa {
+        padding: 1rem;
+    }
+
+    .modal-login-container form {
+        width: 100%;
+    }
+
+    .modal-login-overlay {
+        align-items: flex-start;
+        padding-top: 1rem;
+    }
+}

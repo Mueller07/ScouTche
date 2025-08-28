@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="./css/btnHamburguer.css" />
   <link rel="stylesheet" href="./css/headerResponsive.css" />
   <link rel="stylesheet" href="./css/perfil.css" />
+  <link rel="stylesheet" href="./css/perfilResposive.css" />
+  <link rel="stylesheet" href="./css/modalFlutuante.css" />
 </head>
 
 <body onload="carregarFoto()">
@@ -34,8 +36,8 @@
     </div>
 
     <div id="profile-container">
-      <a href="perfil.html">
-        <img id="fotoP" src="" alt="Foto de perfil" />
+      <a href="">
+        <img id="fotoP" src='https://i.postimg.cc/gJg6vRMH/image.png' alt="Foto de perfil" />
       </a>
     </div>
 
@@ -45,12 +47,50 @@
 
   </header>
 
+  <div id="modalPerfil" class="mini-overlay d-none">
+    <ul>
+      <li><a href="perfil.html">Ver Perfil</a></li>
+      <li><a href="#" class="sair" id="btnSair">Sair da Conta</a></li>
+    </ul>
+  </div>
+
+  <div class="modal fade" id="menuModal" tabindex="-1" aria-labelledby="menuModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-sm-down">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="menuModalLabel">Menu</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body d-flex flex-column gap-3 px-4">
+          <a href="./home.html" class="nav-link text-white d-flex align-items-center">
+            <img class="icon-header me-2" src="https://i.postimg.cc/Hx14CkmB/image.png" alt="icon-home" />
+            Página Principal
+          </a>
+          <a href="./criarEvento.html" class="nav-link text-white d-flex align-items-center">
+            <img class="icon-header me-2" src="https://i.postimg.cc/8Cnyq6PW/image.png" alt="icon-criar" />
+            Criar Evento
+          </a>
+          <a href="./inscricoes.html" class="nav-link text-white d-flex align-items-center">
+            <img class="icon-header me-2" src="https://i.postimg.cc/C50rh4GB/image.png" alt="icon-insc" />
+            Inscrições
+          </a>
+          <a href="perfil.html" class="nav-link text-white d-flex align-items-center d-md-none">
+            <img id="fotoPMobile" class="icon-header me-2" src="" alt="Foto de perfil" />
+            Meu Perfil
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <main class="container perfil-container">
     <section class="perfil-dados d-flex gap-4">
       <div class="perfil-foto text-center">
         <img id="fotoPerfil" src="./img/futsal.png" alt="Foto de perfil"
           style="width:160px; height:160px; border-radius:50%;" />
-        <button id="btnEscolherAvatar" class="btn btn-primary ">Escolher Avatar</button>
+        <button id="btnEscolherAvatar" class="btn-avatar">Escolher Avatar</button>
+        <button id="btnExcluirConta" class="btn-excluir">Excluir Conta</button>
       </div>
 
       <div class="perfil-info">
@@ -85,9 +125,9 @@
     <div class="modal-content-custom">
       <h2>Editar Perfil</h2>
 
-      <input type="text" id="editNome" placeholder="Nome completo" />
+      <label for="editNascimento" class="form-label">Selecione a sua data de nascimento:</label>
+      <input type="date" id="editNascimento" class="form-control" />
 
-      <input type="date" id="editNascimento" />
 
       <select id="editModalidade">
         <option value="">Selecione a modalidade</option>
@@ -97,14 +137,8 @@
         <option value="Futsal">Futsal</option>
       </select>
 
-      <select id="editTipoConta">
-        <option value="">Selecione o tipo de conta</option>
-        <option value="Atleta">Atleta</option>
-        <option value="Olheiro">Olheiro</option>
-      </select>
-
       <textarea id="editBio" placeholder="Bio"></textarea>
-
+      <div id="alertContainer" class="alert d-none" role="alert"></div>
       <div class="modal-btn-group">
         <button id="salvarEdicaoPerfil" class="btn btn-primary">Salvar</button>
         <button id="cancelarEdicaoPerfil" class="btn btn-secondary">Cancelar</button>
@@ -112,8 +146,35 @@
     </div>
   </div>
 
+  <div class="modal fade" id="modalExcluirConta" tabindex="-1" aria-labelledby="modalExcluirContaLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content custom-modal">
+        <div class="modal-header custom-modal-header">
+          <h5 class="modal-title">Excluir Conta</h5>
+          <button type="button" class="btn-close custom-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body custom-modal-body">
+          <p class="modal-text">Tem certeza que deseja excluir sua conta? Esta ação não poderá ser desfeita.</p>
+          <div class="mb-3">
+            <label for="senhaExclusao" class="form-label modal-label">Digite sua senha:</label>
+            <input type="password" class="form-control modal-input" id="senhaExclusao" placeholder="Senha" />
+          </div>
+          <div id="alertGlobal" class="alert d-none text-center" role="alert"></div>
+        </div>
+        <div class="modal-footer custom-modal-footer">
+          <button type="button" class="btn cancel-btn" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn delete-btn" id="btnConfirmarExclusao">Confirmar Exclusão</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
   <script src="./script/perfil.js"></script>
+  <script src="./script/modalFlutuante.js"></script>
+  <script src="./script/protect-page.js"></script>
 </body>
 
 </html>

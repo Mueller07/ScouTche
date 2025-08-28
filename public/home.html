@@ -9,10 +9,11 @@
   <link rel="stylesheet" href="./css/home.css" />
   <link rel="stylesheet" href="./css/btnHamburguer.css" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="./css/modalFlutuante.css"/>
 
-  <title>home</title>
+  <title>Home</title>
 </head>
-<body onload="carregarFoto()">
+<body onload="carregarFoto(); carregarEventos()">
   <header>
     <a>
       <img src="https://i.postimg.cc/z3Z03Gwt/Chat-GPT-Image-18-de-jun-de-2025-21-56-18.png" />
@@ -33,10 +34,9 @@
         </a>
       </nav>
     </div>
-
-    <div id="profile-container">
-      <a href="perfil.html">
-        <img id="fotoP" src="" alt="Foto de perfil" />
+      <div id="profile-container">
+      <a href="">
+        <img id="fotoP" src='https://i.postimg.cc/gJg6vRMH/image.png' alt="Foto de perfil" />
       </a>
     </div>
     </div>
@@ -48,35 +48,38 @@
   </header>
 
   <div class="modal fade" id="menuModal" tabindex="-1" aria-labelledby="menuModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen-sm-down">
-      <div class="modal-content bg-dark text-white">
-        <div class="modal-header border-0">
-          <h5 class="modal-title" id="menuModalLabel">Menu</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        <div class="modal-dialog modal-fullscreen-sm-down">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" id="menuModalLabel">Menu</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body d-flex flex-column gap-3 px-4">
+                    <a href="./home.html" class="nav-link text-white d-flex align-items-center">
+                        <img class="icon-header me-2" src="https://i.postimg.cc/Hx14CkmB/image.png" alt="icon-home" />
+                        Página Principal
+                    </a>
+                    <a href="./criarEvento.html" class="nav-link text-white d-flex align-items-center">
+                        <img class="icon-header me-2" src="https://i.postimg.cc/8Cnyq6PW/image.png" alt="icon-criar" />
+                        Criar Evento
+                    </a>
+                    <a href="./inscricoes.html" class="nav-link text-white d-flex align-items-center">
+                        <img class="icon-header me-2" src="https://i.postimg.cc/C50rh4GB/image.png" alt="icon-insc" />
+                        Inscrições
+                    </a>
+                    <a href="perfil.html" class="nav-link text-white d-flex align-items-center d-md-none">
+                        <img id="fotoPMobile" class="icon-header me-2" src="" alt="Foto de perfil" />
+                        Meu Perfil
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="modal-body d-flex flex-column gap-3 px-4">
-          <a href="./home.html" class="nav-link text-white d-flex align-items-center">
-            <img class="icon-header me-2" src="https://i.postimg.cc/Hx14CkmB/image.png" alt="icon-home" />
-            Página Principal
-          </a>
-          <a href="./criarEvento.html" class="nav-link text-white d-flex align-items-center">
-            <img class="icon-header me-2" src="https://i.postimg.cc/8Cnyq6PW/image.png" alt="icon-criar" />
-            Criar Evento
-          </a>
-          <a href="./inscricoes.html" class="nav-link text-white d-flex align-items-center">
-            <img class="icon-header me-2" src="https://i.postimg.cc/C50rh4GB/image.png" alt="icon-insc" />
-            Inscrições
-          </a>
-        </div>
-      </div>
     </div>
-  </div>
 
   <div id="modalPerfil" class="mini-overlay d-none">
     <ul>
       <li><a href="perfil.html">Ver Perfil</a></li>
-      <li><a href="#" id="linkAlterarEmail">Alterar E-mail</a></li>
-      <li><a href="#" id="linkAlterarSenha">Alterar Senha</a></li>
       <li><a href="#" class="sair" id="btnSair">Sair da Conta</a></li>
     </ul>
   </div>
@@ -84,9 +87,10 @@
   <main>
     <section class="busca-filtros">
       <div class="input-container">
-        <input type="text" placeholder="Buscar Campeonatos, Peneiras, Clubes..." class="input-busca" />
-        <img src="https://i.postimg.cc/brSN3XKD/icons8-search-52.png" alt="lupa" class="input-icon" />
+        <input type="text" placeholder="Buscar Campeonatos, Peneiras, Clubes..." class="input-busca" id="inputBusca" />
+        <img src="https://i.postimg.cc/brSN3XKD/icons8-search-52.png" alt="lupa" class="input-icon" id="btnBusca" />
       </div>
+
 
       <div class="filtros">
         <div class="filtro-dropdown">
@@ -151,9 +155,9 @@
           <div class="carousel-item active slide1">
             <div class="container">
               <div class="carousel-caption text-start">
-                <h1>Campeonato Estadual de Futsal</h1>
-                <p>SUB - 17</p>
-                <p><a class="btn btn-lg btn-um" href="">Saiba Mais</a></p>
+                <h1>Crie um Evento Entre seus amigos</h1>
+                <p>Acesse a página "Criar Evento"</p>
+                <p><a class="btn btn-lg btn-um" href="./criarEvento.html">Saiba Mais</a></p>
               </div>
             </div>
           </div>
@@ -161,9 +165,9 @@
           <div class="carousel-item slide2">
             <div class="container">
               <div class="carousel-caption text-start">
-                <h1>Campeonato Estadual de Vôlei</h1>
-                <p>SUB - 15</p>
-                <p><a class="btn btn-lg btn-dois" href="">Saiba Mais</a></p>
+                <h1>Participe de um Evento</h1>
+                <p>Clique em "Saiba Mais"</p>
+                <p><a class="btn btn-lg btn-dois" href="#eventos">Saiba Mais</a></p>
               </div>
             </div>
           </div>
@@ -171,9 +175,9 @@
           <div class="carousel-item slide3">
             <div class="container">
               <div class="carousel-caption text-start">
-                <h1>Campeonato Estadual de Basquete</h1>
-                <p>SUB - 16</p>
-                <p><a class="btn btn-lg btn-tres" href="">Saiba Mais</a></p>
+                <h1>Veja as Suas Inscrições</h1>
+                <p>Acesse a página "Inscrições"</p>
+                <p><a class="btn btn-lg btn-tres" href="./inscricoes.html">Saiba Mais</a></p>
               </div>
             </div>
           </div>
@@ -191,38 +195,47 @@
       </div>
     </section>
 
-    <section class="info-eventos mt-3 text-center text-secondary">
-      <div id="info-futsal">
-        <p>
-          <img src="https://i.postimg.cc/t43d06TM/image.png" alt="local" /> Porto Alegre - RS |
-          <img src="https://i.postimg.cc/kXMfvfgg/image.png" alt="data" /> 20 de julho de 2025
-        </p>
-      </div>
-      <div id="info-volei" class="d-none">
-        <p>
-          <img src="https://i.postimg.cc/t43d06TM/image.png" alt="local" /> Canoas - RS |
-          <img src="https://i.postimg.cc/kXMfvfgg/image.png" alt="data" /> 25 de agosto de 2025
-        </p>
-      </div>
-      <div id="info-basquete" class="d-none">
-        <p>
-          <img src="https://i.postimg.cc/t43d06TM/image.png" alt="local" /> Caxias do Sul - RS |
-          <img src="https://i.postimg.cc/kXMfvfgg/image.png" alt="data" /> 10 de setembro de 2025
-        </p>
-      </div>
-    </section>
-
-    <section class="eventos">
+  
+    <section class="eventos" id="eventos">
       <div id="outros-jogos">
         <ul>
           <li>BORA PRO JOGO?</li>
         </ul>
       </div>
     </section>
+    <section class="eventos" id="eventos">
+      <div class="container">
+        <div class="row" id="eventos-row"></div>
+      </div>
+    </section>
+
+            
+          </div>
+        </div>
   </main>
 
+  <div class="modal fade" id="modalEvento" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitulo">Evento</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body" id="modalCorpo">
+          <!-- Informações do evento serão inseridas aqui via JS -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="modalBotaoAcao"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
 <script src="script/script.js"></script>
+<script src="./script/modalFlutuante.js"></script>
+<script src="./script/BuscarEven.js"></script>
 </body>
 
 </html>

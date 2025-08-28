@@ -9,12 +9,27 @@
     <link rel="stylesheet" href="./css/criarEvento.css" />
     <link rel="stylesheet" href="./css/criarEventoResponsive.css" />
     <link rel="stylesheet" href="./css/header.css" />
-    <link rel="stylesheet" href="./css/headerResponsive.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="./css/headerResponsive.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/modalFlutuante.css" />
 
 </head>
 
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055">
+    <div id="alertPermissao" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive"
+        aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Apenas profissionais podem criar esse tipo de evento.
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                aria-label="Fechar"></button>
+        </div>
+    </div>
+</div>
+
 <body onload="carregarFoto()">
+
     <header>
         <a>
             <img src="https://i.postimg.cc/z3Z03Gwt/Chat-GPT-Image-18-de-jun-de-2025-21-56-18.png" />
@@ -35,12 +50,12 @@
                 </a>
             </nav>
         </div>
+        </div>
 
         <div id="profile-container">
-            <a href="perfil.html">
-                <img id="fotoP" src="" alt="Foto de perfil" />
+            <a href="">
+                <img id="fotoP" src='https://i.postimg.cc/gJg6vRMH/image.png'alt="Foto de perfil" />
             </a>
-        </div>
         </div>
 
         <button class="menu-toggle d-md-none btn text-white" data-bs-toggle="modal" data-bs-target="#menuModal">
@@ -69,14 +84,26 @@
                         <img class="icon-header me-2" src="https://i.postimg.cc/C50rh4GB/image.png" alt="icon-insc" />
                         Inscrições
                     </a>
+                    <a href="perfil.html" class="nav-link text-white d-flex align-items-center d-md-none">
+                        <img id="fotoPMobile" class="icon-header me-2" src="" alt="Foto de perfil" />
+                        Meu Perfil
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+    <div id="modalPerfil" class="mini-overlay d-none">
+        <ul>
+            <li><a href="perfil.html">Ver Perfil</a></li>
+            <li><a href="#" class="sair" id="btnSair">Sair da Conta</a></li>
+        </ul>
+    </div>
+
+    <div id="alertContainer" class="alert d-none" role="alert"></div>
 
     <main>
         <section class="primeira">
-            <h5 id="tituloH">Olá, o que você acha de um novo jogo?</h5>
+            <h5 id="tituloH" >Olá, o que você acha de um novo jogo?</h5>
             <div class="criar-opcoes">
                 <button class="btn-criar-seletiva" data-bs-toggle="modal" data-bs-target="#modalSeletiva">
                     <img src="./img/mais.png" alt="iconMais"> Criar Seletiva
@@ -91,7 +118,7 @@
         </section>
 
         <section class="segunda">
-            <h5 id="tituloH">Ainda nessa semana</h5>
+            <h5 id="tituloH">Meus Eventos</h5>
             <div class="telas">
 
             </div>
@@ -107,14 +134,6 @@
                 </div>
                 <form id="formSeletiva">
                     <div class="mb-3">
-                        <label class="form-label">Tipo de Evento</label>
-                        <select class="form-select" name="tipo" required>
-                            <option value="Peneira">Peneira</option>
-                            <option value="Amistoso">Amistoso</option>
-                            <option value="Varzea">Várzea</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
                         <label class="form-label">Nome</label>
                         <input type="text" class="form-control" name="nome" required>
                     </div>
@@ -130,16 +149,16 @@
                         <label class="form-label">Modalidade</label>
                         <select class="form-select" name="modalidade" required>
                             <option value="Futebol">Futebol</option>
-                            <option value="Basquete">Basquete</option>
-                            <option value="Volei">Vôlei</option>
-                            <option value="Handebol">Handebol</option>
+                            <option value="Basquete">Vôlei</option>
+                            <option value="Volei">Basquete</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-success">Criar Evento</button>
+                    <button type="submit" class="btn btn-success">Criar Seletiva</button>
                 </form>
             </div>
         </div>
     </div>
+
 
     <div class="modal fade" id="modalTorneio" tabindex="-1">
         <div class="modal-dialog">
@@ -150,14 +169,6 @@
                 </div>
                 <form id="formTorneio">
                     <div class="mb-3">
-                        <label class="form-label">Tipo de Evento</label>
-                        <select class="form-select" name="tipo" required>
-                            <option value="Peneira">Peneira</option>
-                            <option value="Amistoso">Amistoso</option>
-                            <option value="Varzea">Várzea</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
                         <label class="form-label">Nome</label>
                         <input type="text" class="form-control" name="nome" required>
                     </div>
@@ -175,10 +186,9 @@
                             <option value="Futebol">Futebol</option>
                             <option value="Basquete">Basquete</option>
                             <option value="Volei">Vôlei</option>
-                            <option value="Handebol">Handebol</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-success">Criar Evento</button>
+                    <button ktype="submit" class="btn btn-success">Criar Torneio</button>
                 </form>
             </div>
         </div>
@@ -193,14 +203,6 @@
                 </div>
                 <form id="formJogo">
                     <div class="mb-3">
-                        <label class="form-label">Tipo de Evento</label>
-                        <select class="form-select" name="tipo" required>
-                            <option value="Peneira">Peneira</option>
-                            <option value="Amistoso">Amistoso</option>
-                            <option value="Varzea">Várzea</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
                         <label class="form-label">Nome</label>
                         <input type="text" class="form-control" name="nome" required>
                     </div>
@@ -210,7 +212,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">CEP</label>
-                        <input type="number" class="form-control" name="cep" required>
+                        <input type="text" class="form-control" name="cep" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Modalidade</label>
@@ -218,18 +220,56 @@
                             <option value="Futebol">Futebol</option>
                             <option value="Basquete">Basquete</option>
                             <option value="Volei">Vôlei</option>
-                            <option value="Handebol">Handebol</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-success">Criar Evento</button>
+                    <button type="submit" class="btn btn-success">Criar Amador</button>
                 </form>
             </div>
         </div>
     </div>
 
+    <div class="modal fade" id="modalEditar" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Evento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="formEditar">
+                    <input type="hidden" id="editId" name="id" />
+                    <div class="mb-3">
+                        <label class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="editNome" name="nome" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descrição</label>
+                        <input class="form-control" id="editDesc" name="desc" required></input>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">CEP</label>
+                        <input type="text" class="form-control" id="editCep" name="cep" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Modalidade</label>
+                        <select class="form-select" id="editModalidade" name="modalidade" required>
+                            <option value="Futebol">Futebol</option>
+                            <option value="Basquete">Basquete</option>
+                            <option value="Volei">Vôlei</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Salvar alterações</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./script/modalFlutuante.js"></script>
     <script src="./script/btnHamburguer.js"></script>
     <script src="./script/fetchEvento.js"></script>
+    <script src="./script/eventPermission.js"></script>
+    <script src="./script/protect-page.js"></script>
 </body>
 
 </html>

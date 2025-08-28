@@ -176,3 +176,143 @@ main {
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
 }
+
+#modalEditar .modal-content {
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    background: #fff;
+    padding: 20px;
+}
+
+#modalEditar .modal-header {
+    border-bottom: none;
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    color: white;
+    border-radius: 15px 15px 0 0;
+}
+
+#modalEditar .modal-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+#modalEditar .btn-close {
+    filter: invert(1);
+}
+
+#modalEditar .form-control,
+#modalEditar .form-select {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+#modalEditar .form-control:focus,
+#modalEditar .form-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.5);
+}
+
+#modalEditar button[type="submit"] {
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+#modalEditar button[type="submit"]:hover {
+    background: linear-gradient(135deg, #0056b3, #0096c7);
+    transform: translateY(-2px);
+}
+
+.tela {
+    background-color: #ede8e8;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 100%;
+}
+
+
+.telas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.tela:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.tela h6 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: #333;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5rem;
+}
+
+.tela p {
+    font-size: 0.95rem;
+    color: #555;
+    margin: 0.4rem 0;
+    padding-left: 0.3rem;
+}
+
+.tela .botoes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+.tela button {
+    flex: 1;
+    margin: 0 0.3rem;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-editar {
+    background-color: #0d6efd;
+    color: #fff;
+}
+
+.btn-editar:hover {
+    background-color: #0b5ed7;
+}
+
+.btn-excluir {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.btn-excluir:hover {
+    background-color: #bb2d3b;
+}
+
+.primeira{
+    margin-top: 3%;
+}
+
+.primeira h5#tituloH {
+    margin-bottom: 30px; /* ajuste o valor para aumentar ou diminuir o espaço */
+  }
+  
