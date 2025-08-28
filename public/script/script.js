@@ -262,4 +262,57 @@ async function carregarFoto() {
 
     
 
+    async function entrarEvento(eventoId, userId) {
+      if (!userId || !eventoId) {
+        alert("Usuário ou evento não informado.");
+        return;
+      }
+      try {
+        const response = await fetch("http://localhost:3000/api/participantes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId, eventoId })
+        });
+        if (!response.ok) {
+          const err = await response.json().catch(() => ({}));
+          throw new Error(err.message || "Erro ao participar do evento");
+        }
+        await response.json();
+        alert("Você entrou no evento com sucesso!");
+      } catch (error) {
+        console.error("Erro entrarEvento:", error);
+        alert(error.message || "Erro ao entrar no evento. Tente novamente.");
+      }
+    }
     
+    // Sair do evento específico
+    async function sairEvento(eventoId, userId) {
+      if (!userId || !eventoId) {
+        alert("Usuário ou evento não informado.");
+        return;
+      }
+      try {
+        const response = await fetch(`http://localhost:3000/api/participantes/${eventoId}/${userId}`, {
+          method: "DELETE"
+        });
+        if (!response.ok) {
+          const err = await response.json().catch(() => ({}));
+          throw new Error(err.message || "Erro ao sair do evento");
+        }
+        alert("Você saiu do evento com sucesso!");
+      } catch (error) {
+        console.error("Erro sairEvento:", error);
+        alert(error.message || "Erro ao sair do evento. Tente novamente.");
+      }
+    }
+    async function obterTotalParticipantes(eventoId) {
+      try {
+        const res = await fetch(`http://localhost:3000/api/participantes/count/${eventoId}`);
+        if (!res.ok) throw new Error("Erro ao buscar total de participantes");
+        const data = await res.json();
+        return data.total;
+      } catch (err) {
+        console.error(err);
+        return 0;
+      }
+    }
